@@ -1,0 +1,33 @@
+/*
+Base Styles & Universal Elements
+*/
+
+:root {
+    /*COLORS*/
+    --brown: #AA8440;
+    --dark-blue: #4066AA;
+    --light-blue: #93ABD6;
+    --almost-black: #222328;
+    --almost-white: #fefefe;
+    
+    /*FONTS*/
+    --font-primary: 'Raleway', sans-serif;
+
+    /*USE CASES*/
+    --border-radius: 8px;}
+
+html{
+    height: 100%;}
+    html * {
+        box-sizing: border-box;}
+
+body{
+    color: var(--almost-black);
+    font-family: var(--font-primary);
+    font-size: 1.125rem;
+    line-height: 1.35;}
+
+.wrap{
+    display: block;
+    margin: 0 auto;
+    width: min(1120px, 90%);}
