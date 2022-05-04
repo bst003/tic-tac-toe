@@ -6,6 +6,7 @@ create a module for the game board (gameBoard)
         loop through array items and get total length
         add that many divs to #board
         add x and y data attributes to board cells (can be later used to mark location)
+    create function that takes active payers marker and adds it to _boardArray on click
 
 create a factory function to create the players (Players)
     must take in value for marker
@@ -14,7 +15,7 @@ create a factory function to create the players (Players)
 create a module to control the flow of the game (gameFlow)
     start game on start button click
     Create player objects from form
-    change active player
+        pass into gameBoard?
     control reset game button
 
 
@@ -23,6 +24,8 @@ Questions?
         leaning towards gameBoard as it houses the board element and boardArray
         seems like gameFlow should be for higher level stuff(start, reset, enter names, etc);
     How to check for winning values?
+    Active player needs to change on click
+        Does this mean that _setActivePlayer should be part of the gameBoard?
 
 */
 
@@ -33,7 +36,6 @@ const Player = (name, marker) => {
 
     const getMarker = () => marker;
     const getName = () => name;
-
 
     return {
         getMarker,
@@ -48,48 +50,19 @@ const Player = (name, marker) => {
 
 const gameBoard = (() => {
 
+    // Private variables/functions
+
+    let _player1;
+    let _player2;
+    let _activePlayer;
+
     const _board = document.querySelector('#board');
 
-
-    let boardArray = [
+    let _boardArray = [
         ["","",""],
         ["","",""],
         ["","",""]
     ];
-
-
-    const displayBoard = () => {
-
-        for (let i = 0; i < boardArray.length; i++){
-
-            for(let y = 0; y < boardArray[i].length; y++){
-
-                let cell = document.createElement('div');
-                cell.setAttribute('class', 'board-cell');
-                cell.setAttribute('data-position-x', i);
-                cell.setAttribute('data-position-y', y);
-
-                cell.innerText = boardArray[i][y];
-
-                _board.appendChild(cell);
-
-            }
-
-        }
-
-    }
-
-
-    return{
-        boardArray,
-        displayBoard
-    }
-
-})();
-console.log(gameBoard.boardArray);
-
-
-const gameFlow = (() => {
 
 
     const _setActivePlayer = (playerObject) => {
@@ -104,16 +77,54 @@ const gameFlow = (() => {
 
     }
 
+    // Public variables/functions
+
+    const createPlayers = () => {
+
+        _player1 = Player('player 1', 'x');
+        _player2 = Player('player 2', 'o');
+
+        _activePlayer = _setActivePlayer(_player1);
+
+    }
+
+
+    const displayBoard = () => {
+
+        for (let i = 0; i < _boardArray.length; i++){
+
+            for(let y = 0; y < _boardArray[i].length; y++){
+
+                let cell = document.createElement('div');
+                cell.setAttribute('class', 'board-cell');
+                cell.setAttribute('data-position-x', i);
+                cell.setAttribute('data-position-y', y);
+
+                cell.innerText = _boardArray[i][y];
+
+                _board.appendChild(cell);
+
+            }
+
+        }
+
+    }
+
+
+    return{
+        createPlayers,
+        displayBoard
+    }
+
+})();
+
+
+const gameFlow = (() => {
+
 
     const startGame = () => {
 
-        const player1 = Player('player 1', 'x');
-        const player2 = Player('player 2', 'o');
-
-        let activePlayer = _setActivePlayer(player1);
-
-        console.log(activePlayer);
-
+        gameBoard.createPlayers();
         gameBoard.displayBoard();
 
     }
