@@ -31,3 +31,26 @@ body{
     display: block;
     margin: 0 auto;
     width: min(700px, 90%);}
+
+/*
+Game Board
+*/
+
+#board{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: min(460px, 90%);}
+    #board .board-cell{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        background-color: var(--brown);
+        cursor: pointer;
+        color: var(--almost-white);
+        font-size: 66px;}
+        #board .board-cell::before{
+            content: "";
+            padding-bottom: 100%;}

@@ -9,10 +9,11 @@ create a module for the game board (gameBoard)
 
 create a factory function to create the players (Players)
     must take in value for marker
+    must take in value for player name
 
 create a module to control the flow of the game (gameFlow)
     start game on start button click
-    take in player names
+    Create player objects from form
     change active player
     control reset game button
 
@@ -35,12 +36,35 @@ const gameBoard = (() => {
         ["","",""]
     ];
 
+    const displayBoard = () => {
+
+        for (let i = 0; i < boardArray.length; i++){
+
+            for(let y = 0; y < boardArray[i].length; y++){
+
+                let cell = document.createElement('div');
+                cell.setAttribute('class', 'board-cell');
+                cell.setAttribute('data-position-x', i);
+                cell.setAttribute('data-position-y', y);
+
+                cell.innerText = boardArray[i][y];
+
+                _board.appendChild(cell);
+
+            }
+
+        }
+
+    }
+
     return{
-        boardArray
+        boardArray,
+        displayBoard
     }
 
 })();
-console.log(gameBoard.boardArray)
+gameBoard.displayBoard();
+console.log(gameBoard.boardArray);
 
 
 const gameFlow = (() => {
