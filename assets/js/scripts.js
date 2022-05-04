@@ -26,15 +26,37 @@ Questions?
 
 */
 
+// Factories
+//////////////////////
+
+const Player = (name, marker) => {
+
+    const getMarker = () => marker;
+    const getName = () => name;
+
+
+    return {
+        getMarker,
+        getName
+    }
+
+};
+
+
+// Modules
+//////////////////////
+
 const gameBoard = (() => {
 
     const _board = document.querySelector('#board');
+
 
     let boardArray = [
         ["","",""],
         ["","",""],
         ["","",""]
     ];
+
 
     const displayBoard = () => {
 
@@ -57,31 +79,49 @@ const gameBoard = (() => {
 
     }
 
+
     return{
         boardArray,
         displayBoard
     }
 
 })();
-gameBoard.displayBoard();
 console.log(gameBoard.boardArray);
 
 
 const gameFlow = (() => {
 
-    return {
 
+    const _setActivePlayer = (playerObject) => {
+
+        const activeName = playerObject.getName();
+        const activeMarker = playerObject.getMarker();
+
+        return {
+            activeName,
+            activeMarker
+        }
+
+    }
+
+
+    const startGame = () => {
+
+        const player1 = Player('player 1', 'x');
+        const player2 = Player('player 2', 'o');
+
+        let activePlayer = _setActivePlayer(player1);
+
+        console.log(activePlayer);
+
+        gameBoard.displayBoard();
+
+    }
+
+
+    return {
+        startGame
     }
 
 })();
-
-
-const Player = (marker) => {
-
-    const getMarker = () => marker;
-
-    return {
-        getMarker
-    }
-
-};
+gameFlow.startGame();

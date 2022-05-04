@@ -17,6 +17,7 @@ Base Styles & Universal Elements
     --border-radius: 8px;}
 
 html{
+    background-color: var(--light-blue);
     height: 100%;}
     html * {
         box-sizing: border-box;}
@@ -41,7 +42,7 @@ Game Board
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5px;
-    width: min(460px, 90%);}
+    width: min(440px, 90%);}
     #board .board-cell{
         display: flex;
         justify-content: center;
