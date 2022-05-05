@@ -65,6 +65,23 @@ const gameBoard = (() => {
     ];
 
 
+    const _addMarkToBoard = (e) => {
+
+        let positionX = e.target.getAttribute('data-position-x');
+        let positionY = e.target.getAttribute('data-position-y');
+
+        console.log(e);
+        console.log(positionX);
+        console.log(_activePlayer);
+
+        _boardArray[positionX][positionY] = _activePlayer.activeMarker;
+
+        gameBoard.displayBoard();
+        gameBoard.setBoardListeners();
+
+    }
+
+
     const _setActivePlayer = (playerObject) => {
 
         const activeName = playerObject.getName();
@@ -91,6 +108,8 @@ const gameBoard = (() => {
 
     const displayBoard = () => {
 
+        _board.innerText = '';
+
         for (let i = 0; i < _boardArray.length; i++){
 
             for(let y = 0; y < _boardArray[i].length; y++){
@@ -111,9 +130,23 @@ const gameBoard = (() => {
     }
 
 
+    const setBoardListeners = () => {
+
+        let cells = document.querySelectorAll('.board-cell');
+
+        cells.forEach( (cell) => {
+
+            cell.addEventListener('click', _addMarkToBoard );
+
+        }); 
+
+    }
+
+
     return{
         createPlayers,
-        displayBoard
+        displayBoard,
+        setBoardListeners
     }
 
 })();
@@ -126,6 +159,7 @@ const gameFlow = (() => {
 
         gameBoard.createPlayers();
         gameBoard.displayBoard();
+        gameBoard.setBoardListeners();
 
     }
 
