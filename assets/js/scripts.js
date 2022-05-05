@@ -34,10 +34,13 @@ Questions?
 
 const Player = (name, marker) => {
 
+    const playerMarker = marker;
+
     const getMarker = () => marker;
     const getName = () => name;
 
     return {
+        playerMarker,
         getMarker,
         getName
     }
@@ -70,14 +73,14 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-        console.log(e);
         console.log(positionX);
-        console.log(_activePlayer);
+        console.log(positionY);
 
         _boardArray[positionX][positionY] = _activePlayer.activeMarker;
 
-        gameBoard.displayBoard();
-        gameBoard.setBoardListeners();
+        displayBoard();
+        setBoardListeners();
+        _activePlayer = _switchActivePlayer(_activePlayer);
 
     }
 
@@ -91,6 +94,21 @@ const gameBoard = (() => {
             activeName,
             activeMarker
         }
+
+    }
+
+
+    const _switchActivePlayer = (playerObject) => {
+
+        let updatedActivePlayer;
+
+        if( playerObject.activeMarker == 'x' ){
+            updatedActivePlayer =_setActivePlayer(_player2);
+        } else {_setActivePlayer(_player2);
+            updatedActivePlayer =_setActivePlayer(_player1);
+        }
+
+        return updatedActivePlayer;
 
     }
 
