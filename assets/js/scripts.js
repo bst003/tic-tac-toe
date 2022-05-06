@@ -73,14 +73,19 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
+
         console.log(`x:${positionX} y:${positionY}`);
 
         if( _boardArray[positionX][positionY] === "" ){
             _boardArray[positionX][positionY] = _activePlayer.activeMarker;
 
+            const winningMove = _checkForWin();
+
             displayBoard();
             setBoardListeners();
-            _checkForWin();
+            if( winningMove ){
+                console.log('winning move');
+            }
             _activePlayer = _switchActivePlayer(_activePlayer);
         }
 
@@ -89,16 +94,41 @@ const gameBoard = (() => {
 
     const _checkForWin = () => {
 
+        // loop to get horizontal winning options
         for (let i = 0; i < _boardArray.length; i++){
 
             if( 
-                ( (_boardArray[i][0] !== "") && (_boardArray[i][0] === _boardArray[i][1]) && ( _boardArray[i][1] === _boardArray[i][2]) )
-                || ( (_boardArray[0][i] !== "") && (_boardArray[0][i] === _boardArray[1][i]) && ( _boardArray[1][i] === _boardArray[2][i]) )
+                ( ( _boardArray[i][0] !== "" ) 
+                    && ( _boardArray[i][0] === _boardArray[i][1] ) 
+                    && ( _boardArray[i][1] === _boardArray[i][2] ) 
+                )
+                || ( 
+                    ( _boardArray[0][i] !== "" ) 
+                    && ( _boardArray[0][i] === _boardArray[1][i] ) 
+                    && ( _boardArray[1][i] === _boardArray[2][i] ) 
+                )
             ){
-                console.log('winning move');
+                return true;
             } 
 
         }
+
+        //condtionals to cover both diagonal options
+        if(
+            ( _boardArray[0][0] !== "" ) 
+            && ( _boardArray[0][0] === _boardArray[1][1] )
+            && ( _boardArray[1][1] === _boardArray[_boardArray.length - 1][_boardArray.length - 1] )
+        ){
+            return true;
+        } else if (
+            ( _boardArray[0][_boardArray.length - 1] !== "" ) 
+            && ( _boardArray[0][_boardArray.length - 1] === _boardArray[1][1] )
+            && ( _boardArray[1][1] === _boardArray[_boardArray.length - 1][0] )
+        ) {
+            return true;
+        }
+
+        return false;
 
     }
 
