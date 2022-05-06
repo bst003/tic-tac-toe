@@ -80,7 +80,24 @@ const gameBoard = (() => {
 
             displayBoard();
             setBoardListeners();
+            _checkForWin();
             _activePlayer = _switchActivePlayer(_activePlayer);
+        }
+
+    }
+
+
+    const _checkForWin = () => {
+
+        for (let i = 0; i < _boardArray.length; i++){
+
+            if( 
+                ( (_boardArray[i][0] !== "") && (_boardArray[i][0] === _boardArray[i][1]) && ( _boardArray[i][1] === _boardArray[i][2]) )
+                || ( (_boardArray[0][i] !== "") && (_boardArray[0][i] === _boardArray[1][i]) && ( _boardArray[1][i] === _boardArray[2][i]) )
+            ){
+                console.log('winning move');
+            } 
+
         }
 
     }
