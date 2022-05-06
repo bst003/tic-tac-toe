@@ -73,14 +73,15 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-        console.log(positionX);
-        console.log(positionY);
+        console.log(`x:${positionX} y:${positionY}`);
 
-        _boardArray[positionX][positionY] = _activePlayer.activeMarker;
+        if( _boardArray[positionX][positionY] === "" ){
+            _boardArray[positionX][positionY] = _activePlayer.activeMarker;
 
-        displayBoard();
-        setBoardListeners();
-        _activePlayer = _switchActivePlayer(_activePlayer);
+            displayBoard();
+            setBoardListeners();
+            _activePlayer = _switchActivePlayer(_activePlayer);
+        }
 
     }
 
