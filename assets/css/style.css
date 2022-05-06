@@ -4,7 +4,8 @@ Base Styles & Universal Elements
 
 :root {
     /*COLORS*/
-    --brown: #AA8440;
+    --dark-brown: #AA8440;
+    --light-brown: #C19C5C;
     --dark-blue: #4066AA;
     --light-blue: #93ABD6;
     --almost-black: #222328;
@@ -48,10 +49,12 @@ Game Board
         justify-content: center;
         align-items: center;
         position: relative;
-        background-color: var(--brown);
+        background-color: var(--dark-brown);
         cursor: pointer;
         color: var(--almost-white);
         font-size: 66px;}
         #board .board-cell::before{
             content: "";
             padding-bottom: 100%;}
+        #board .board-cell:hover{
+            background-color: var(--light-brown);}
