@@ -77,14 +77,15 @@ const gameBoard = (() => {
         console.log(`x:${positionX} y:${positionY}`);
 
         if( _boardArray[positionX][positionY] === "" ){
-            _boardArray[positionX][positionY] = _activePlayer.activeMarker;
+            _boardArray[positionX][positionY] = _activePlayer.marker;
 
             const winningMove = _checkForWin();
 
             displayBoard();
             setBoardListeners();
             if( winningMove ){
-                console.log('winning move');
+                console.log(`winning move by ${_activePlayer.name}`);
+                _removeBoardListeners();
             }
             _activePlayer = _switchActivePlayer(_activePlayer);
         }
@@ -133,14 +134,27 @@ const gameBoard = (() => {
     }
 
 
+    const _removeBoardListeners = () => {
+
+        let cells = document.querySelectorAll('.board-cell');
+
+        cells.forEach( (cell) => {
+
+            cell.removeEventListener('click', _addMarkToBoard );
+
+        }); 
+
+    }
+
+
     const _setActivePlayer = (playerObject) => {
 
         const activeName = playerObject.getName();
         const activeMarker = playerObject.getMarker();
 
         return {
-            activeName,
-            activeMarker
+            name: activeName,
+            marker: activeMarker
         }
 
     }
@@ -150,7 +164,7 @@ const gameBoard = (() => {
 
         let updatedActivePlayer;
 
-        if( playerObject.activeMarker == 'x' ){
+        if( playerObject.marker == 'x' ){
             updatedActivePlayer =_setActivePlayer(_player2);
         } else {_setActivePlayer(_player2);
             updatedActivePlayer =_setActivePlayer(_player1);
