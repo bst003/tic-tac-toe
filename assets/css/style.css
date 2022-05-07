@@ -43,6 +43,67 @@ h1{
     text-align: center;
 }
 
+.button-contain{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;}
+
+button{
+    cursor: pointer;
+    padding: 14px 26px;
+    border: initial;
+    border-radius: var(--border-radius);
+    background-color: var(--dark-blue);
+    color: var(--almost-white);
+    font-size: 20px;
+    font-weight: 700;
+    transition: all .3s;}
+    button:hover,
+    button:active{
+        color: var(--dark-blue);
+        background-color: var(--almost-white);}
+
+.hidden{
+    display: none!important;
+    visibility: hidden!important;}
+
+/*
+Pre Game Content
+*/
+
+#pre-game-content{
+    display: flex;
+    justify-content: center;}
+
+
+/*
+Form Content
+*/
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    width: min(440px, 90%);}
+    form .field{
+        width: 100%;
+        margin: 0px 0px 20px;}
+    form label{
+        display: block;
+        color: var(--almost-white);
+        font-weight: 600;}
+    form input{
+        height: 42px;
+        border-radius: var(--border-radius);
+        border: 2px solid #eee;
+        outline: initial;
+        width: 100%;}
+        form input:focus{
+            border-color: var(--dark-blue);}
+
+
 /*
 Game Board Content
 */

@@ -34,13 +34,10 @@ Questions?
 
 const Player = (name, marker) => {
 
-    const playerMarker = marker;
-
     const getMarker = () => marker;
     const getName = () => name;
 
     return {
-        playerMarker,
         getMarker,
         getName
     }
@@ -175,10 +172,10 @@ const gameBoard = (() => {
 
     // Public variables/functions
 
-    const createPlayers = () => {
+    const createPlayers = ( name1, name2 ) => {
 
-        _player1 = Player('player 1', 'x');
-        _player2 = Player('player 2', 'o');
+        _player1 = Player(name1, 'x');
+        _player2 = Player(name2, 'o');
 
         _activePlayer = _setActivePlayer(_player1);
 
@@ -233,19 +230,52 @@ const gameBoard = (() => {
 
 const gameFlow = (() => {
 
+    // Private variables/functions
+    const _formContent = document.querySelector('#form-content');
+    const _preGameContent = document.querySelector('#pre-game-content');
+    const _startButtons = document.querySelectorAll('.start-game');
 
-    const startGame = () => {
+    const _startGame = () => {
 
-        gameBoard.createPlayers();
+        const playerForm = document.querySelector('#player-form');
+
+        _preGameContent.classList.add('hidden');
+        _formContent.classList.remove('hidden');
+
+        playerForm.addEventListener('submit', _submitPlayerForm);
+
+    }
+
+
+    const _submitPlayerForm = (e) => {
+
+        e.preventDefault();
+
+        _formContent.classList.add('hidden');
+
+        const player1Name = document.querySelector('#player-1-name').value;
+        const player2Name = document.querySelector('#player-2-name').value;
+
+        gameBoard.createPlayers(player1Name, player2Name);
         gameBoard.displayBoard();
         gameBoard.setBoardListeners();
 
     }
 
+    // Public variables/functions
+
+    const setupGame = () => {
+
+        _startButtons.forEach( (startButton) => {
+            startButton.addEventListener('click', _startGame);
+        });
+
+    }
+
 
     return {
-        startGame
+        setupGame
     }
 
 })();
-gameFlow.startGame();
+gameFlow.setupGame();
