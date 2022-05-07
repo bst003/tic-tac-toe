@@ -56,13 +56,22 @@ const gameBoard = (() => {
 
             _boardArray[positionX][positionY] = _activePlayer.marker;
 
+            let postGameMessage;
+
+            const tieMove = _checkForTie();
             const winningMove = _checkForWin();
 
             displayBoard();
             setBoardListeners();
 
             if( winningMove ){
-                _messages.innerText = `${_activePlayer.name} wins!`;
+                postGameMessage = `${_activePlayer.name} wins!`;
+            } else if ( tieMove ) {
+                postGameMessage = `Tie game!`;
+            }
+
+            if( winningMove || tieMove ){
+                _messages.innerText = postGameMessage;
                 _postGameButtons.classList.remove('hidden');
                 playAgainButton.addEventListener('click', _playAgain );
                 _removeBoardListeners();
@@ -71,6 +80,29 @@ const gameBoard = (() => {
             }
 
         }
+
+    }
+
+
+    const _checkForTie = () => {
+
+        let result = true;
+
+        for (let i = 0; i < _boardArray.length; i++){
+
+            for(let y = 0; y < _boardArray[i].length; y++){
+
+                if( _boardArray[i][y] === "" ){
+
+                    result = false;
+
+                }
+
+            }
+
+        }
+
+        return result;
 
     }
 
