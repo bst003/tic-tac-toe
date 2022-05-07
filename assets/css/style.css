@@ -24,6 +24,7 @@ html{
         box-sizing: border-box;}
 
 body{
+    padding: 60px 0px;
     color: var(--almost-black);
     font-family: var(--font-primary);
     font-size: 1.125rem;
@@ -34,8 +35,16 @@ body{
     margin: 0 auto;
     width: min(700px, 90%);}
 
+h1{
+    margin: 0px 0px 40px;
+    color: var(--almost-white);
+    font-size: 48px;
+    font-weight: 700;
+    text-align: center;
+}
+
 /*
-Game Board
+Game Board Content
 */
 
 #board{
@@ -58,3 +67,12 @@ Game Board
             padding-bottom: 100%;}
         #board .board-cell:hover{
             background-color: var(--light-brown);}
+
+
+.post-board-content{
+    margin: 40px 0px 0px;
+    text-align: center;}
+    #messages{
+        color: var(--almost-white);
+        font-size: 22px;
+        font-weight: 600;}

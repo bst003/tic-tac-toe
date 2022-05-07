@@ -73,8 +73,7 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-
-        console.log(`x:${positionX} y:${positionY}`);
+        const messages = document.querySelector('#messages');
 
         if( _boardArray[positionX][positionY] === "" ){
             _boardArray[positionX][positionY] = _activePlayer.marker;
@@ -84,7 +83,7 @@ const gameBoard = (() => {
             displayBoard();
             setBoardListeners();
             if( winningMove ){
-                console.log(`winning move by ${_activePlayer.name}`);
+                messages.innerText = `${_activePlayer.name} wins!`;
                 _removeBoardListeners();
             }
             _activePlayer = _switchActivePlayer(_activePlayer);
