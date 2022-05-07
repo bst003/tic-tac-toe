@@ -36,6 +36,7 @@ const gameBoard = (() => {
 
     const _board = document.querySelector('#board');
     const _messages = document.querySelector('#messages');
+    const _playAgainButton = document.querySelector('#play-again');
     const _postGameButtons = document.querySelector('#post-game-buttons');
 
     let _boardArray = [
@@ -50,7 +51,6 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-        const playAgainButton = document.querySelector('#play-again');
 
         if( _boardArray[positionX][positionY] === "" ){
 
@@ -73,7 +73,8 @@ const gameBoard = (() => {
             if( winningMove || tieMove ){
                 _messages.innerText = postGameMessage;
                 _postGameButtons.classList.remove('hidden');
-                playAgainButton.addEventListener('click', _playAgain );
+                _playAgainButton.addEventListener('click', _playAgain );
+                gameFlow.resetGameButton.addEventListener('click', gameFlow.resetGame );
                 _removeBoardListeners();
             } else {
                 _activePlayer = _switchActivePlayer(_activePlayer);
@@ -244,6 +245,25 @@ const gameBoard = (() => {
     }
 
 
+    const resetGameBoard = () => {
+
+        _player1 = {};
+        _player2 = {};
+
+        _boardArray = [
+            ["","",""],
+            ["","",""],
+            ["","",""]
+        ];        
+
+        _board.innerText = '';
+
+        _messages.innerText = '';
+        _postGameButtons.classList.add('hidden');
+
+    }
+
+
     const setBoardListeners = () => {
 
         let cells = document.querySelectorAll('.board-cell');
@@ -260,6 +280,7 @@ const gameBoard = (() => {
     return{
         createPlayers,
         displayBoard,
+        resetGameBoard,
         setBoardListeners
     }
 
@@ -278,7 +299,7 @@ const gameFlow = (() => {
         const playerForm = document.querySelector('#player-form');
 
         _preGameContent.classList.add('hidden');
-        _formContent.classList.remove('hidden');
+        _formContent.classList.remove('hidden');resetGameButton
 
         playerForm.addEventListener('submit', _submitPlayerForm);
 
@@ -298,9 +319,24 @@ const gameFlow = (() => {
         gameBoard.displayBoard();
         gameBoard.setBoardListeners();
 
+        document.querySelector('#player-1-name').value = '';
+        document.querySelector('#player-2-name').value = '';
+
     }
 
     // Public variables/functions
+
+    const resetGameButton = document.querySelector('#reset');
+
+    
+    const resetGame = () => {
+
+        gameBoard.resetGameBoard();
+
+        _preGameContent.classList.remove('hidden');
+
+    }
+
 
     const setupGame = () => {
 
@@ -312,6 +348,8 @@ const gameFlow = (() => {
 
 
     return {
+        resetGameButton,
+        resetGame,
         setupGame
     }
 
