@@ -35,6 +35,8 @@ const gameBoard = (() => {
     let _activePlayer;
 
     const _board = document.querySelector('#board');
+    const _messages = document.querySelector('#messages');
+    const _postGameButtons = document.querySelector('#post-game-buttons');
 
     let _boardArray = [
         ["","",""],
@@ -48,20 +50,26 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-        const messages = document.querySelector('#messages');
+        const playAgainButton = document.querySelector('#play-again');
 
         if( _boardArray[positionX][positionY] === "" ){
+
             _boardArray[positionX][positionY] = _activePlayer.marker;
 
             const winningMove = _checkForWin();
 
             displayBoard();
             setBoardListeners();
+
             if( winningMove ){
-                messages.innerText = `${_activePlayer.name} wins!`;
+                _messages.innerText = `${_activePlayer.name} wins!`;
+                _postGameButtons.classList.remove('hidden');
+                playAgainButton.addEventListener('click', _playAgain );
                 _removeBoardListeners();
+            } else {
+                _activePlayer = _switchActivePlayer(_activePlayer);
             }
-            _activePlayer = _switchActivePlayer(_activePlayer);
+
         }
 
     }
@@ -104,6 +112,26 @@ const gameBoard = (() => {
         }
 
         return false;
+
+    }
+
+
+    // reset the board to play again
+    const _playAgain = () => {
+
+        _boardArray = [
+            ["","",""],
+            ["","",""],
+            ["","",""]
+        ];
+
+        _activePlayer = _setActivePlayer(_player1);
+
+        _messages.innerText = '';
+        _postGameButtons.classList.add('hidden');
+
+        displayBoard();
+        setBoardListeners();
 
     }
 
