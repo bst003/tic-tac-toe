@@ -317,10 +317,9 @@ const gameFlow = (() => {
 
     // Private variables/functions
     const _formContent = document.querySelector('#form-content');
+    const _player2NameWrap = document.querySelector('#player-2-input-wrap');
     const _preGameContent = document.querySelector('#pre-game-content');
     const _startButtons = document.querySelectorAll('.start-game');
-
-    let vsComputer = true;
 
 
     const _startGame = (e) => {
@@ -330,12 +329,11 @@ const gameFlow = (() => {
         if( e.target.getAttribute('id') === 'start-computer' ) {
 
             const player2Name = document.querySelector('#player-2-name');
-            const player2NameWrap = document.querySelector('#player-2-input-wrap');
 
             player2Name.value = 'The Computer';
-            player2NameWrap.classList.add('hidden');
+            _player2NameWrap.classList.add('hidden');
 
-            vsComputer = true;
+            gameFlow.vsComputer = true;
 
         }
 
@@ -369,12 +367,18 @@ const gameFlow = (() => {
 
     // Public variables/functions
 
+    let vsComputer = false;
+    
     const resetGameButton = document.querySelector('#reset');
 
     
     const resetGame = () => {
 
         gameBoard.resetGameBoard();
+
+        gameFlow.vsComputer = false;
+
+        _player2NameWrap.classList.remove('hidden');
 
         _preGameContent.classList.remove('hidden');
 
