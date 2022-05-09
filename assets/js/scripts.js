@@ -294,7 +294,21 @@ const gameFlow = (() => {
     const _preGameContent = document.querySelector('#pre-game-content');
     const _startButtons = document.querySelectorAll('.start-game');
 
-    const _startGame = () => {
+    const _startGame = (e) => {
+
+        // console.log(e.target.getAttribute('id'));
+
+        if( e.target.getAttribute('id') === 'start-computer' ) {
+
+            const player2Name = document.querySelector('#player-2-name');
+            const player2NameWrap = document.querySelector('#player-2-input-wrap');
+
+            player2Name.value = 'The Computer';
+            player2NameWrap.classList.add('hidden');
+
+            vsComputer = true;
+
+        }
 
         const playerForm = document.querySelector('#player-form');
 
@@ -312,10 +326,10 @@ const gameFlow = (() => {
 
         _formContent.classList.add('hidden');
 
-        const player1Name = document.querySelector('#player-1-name').value;
-        const player2Name = document.querySelector('#player-2-name').value;
+        const player1NameValue = document.querySelector('#player-1-name').value;
+        const player2NameValue = document.querySelector('#player-2-name').value;
 
-        gameBoard.createPlayers(player1Name, player2Name);
+        gameBoard.createPlayers(player1NameValue, player2NameValue);
         gameBoard.displayBoard();
         gameBoard.setBoardListeners();
 
@@ -325,6 +339,7 @@ const gameFlow = (() => {
     }
 
     // Public variables/functions
+    let vsComputer = false;
 
     const resetGameButton = document.querySelector('#reset');
 
@@ -350,7 +365,8 @@ const gameFlow = (() => {
     return {
         resetGameButton,
         resetGame,
-        setupGame
+        setupGame,
+        vsComputer
     }
 
 })();
