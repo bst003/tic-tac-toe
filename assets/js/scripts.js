@@ -51,6 +51,8 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
+        console.log(gameFlow.vsComputer);
+
 
         if( _boardArray[positionX][positionY] === "" ){
 
@@ -78,6 +80,12 @@ const gameBoard = (() => {
                 _removeBoardListeners();
             } else {
                 _activePlayer = _switchActivePlayer(_activePlayer);
+            }
+
+            if( _activePlayer.marker === 'o' &&  gameFlow.vsComputer ){
+                _makeComputerMove();
+            } else {
+                console.log( 'test' );
             }
 
         }
@@ -145,6 +153,24 @@ const gameBoard = (() => {
         }
 
         return false;
+
+    }
+
+
+    const _makeComputerMove = () => {
+
+        const randomPositionX = Math.round( Math.random() * 2);
+        const randomPositionY = Math.round( Math.random() * 2);
+
+        if( _boardArray[randomPositionX][randomPositionY] !== "" ){
+            _makeComputerMove();
+        } else {
+
+            const randomCell = document.querySelector(`.board-cell[data-position-x="${randomPositionX}"][data-position-y="${randomPositionY}"]`);
+
+            randomCell.click();
+
+        }
 
     }
 
@@ -294,6 +320,9 @@ const gameFlow = (() => {
     const _preGameContent = document.querySelector('#pre-game-content');
     const _startButtons = document.querySelectorAll('.start-game');
 
+    let vsComputer = true;
+
+
     const _startGame = (e) => {
 
         // console.log(e.target.getAttribute('id'));
@@ -339,7 +368,6 @@ const gameFlow = (() => {
     }
 
     // Public variables/functions
-    let vsComputer = false;
 
     const resetGameButton = document.querySelector('#reset');
 
