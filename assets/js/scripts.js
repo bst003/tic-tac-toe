@@ -1,12 +1,3 @@
-/*
-
-TODO LIST
-    Add logic for tie games
-    Add buttons to play again or to reset to start screen
-    Add vs computer option
-
-*/
-
 // Factories
 //////////////////////
 
@@ -271,6 +262,7 @@ const gameBoard = (() => {
     }
 
 
+    // reset the entire game board and player objects
     const resetGameBoard = () => {
 
         _player1 = {};
