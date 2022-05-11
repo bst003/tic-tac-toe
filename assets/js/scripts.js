@@ -42,9 +42,6 @@ const gameBoard = (() => {
         let positionX = e.target.getAttribute('data-position-x');
         let positionY = e.target.getAttribute('data-position-y');
 
-        console.log(gameFlow.vsComputer);
-
-
         if( _boardArray[positionX][positionY] === "" ){
 
             _boardArray[positionX][positionY] = _activePlayer.marker;
